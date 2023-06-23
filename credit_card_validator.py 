@@ -1,0 +1,41 @@
+#Benjamin A. Keller
+#6/22/2023
+#Credit Card Validator 
+
+#In this program, we will determine whether or not a credit card is valid with the process of Luhn's Algorhithm
+
+def luhn_algorithm(credit_card_number): 
+    
+    '''The process below is Luhn's Algorithm which reverses the digits of a typical bankcard
+       and multiplies every second digit by 2, then the program takes the sum of the numbers 
+       and divides it by 10, and if the remainder is zero, then the card is invalid
+    '''
+     
+    # process of the Luhn: 
+    credit_card_number = str(credit_card_number)
+    digits = [int(x) for x in credit_card_number]
+    odd = digits[-1::-2]
+    even = digits[-2::-2]
+    total = sum(odd) #sums the odd, then in the even for loop, 
+
+    for digit in even: 
+        total = sum(divmod(digit *2, 10)) #sum of the even numbers, divided with a modulus
+    
+        if total % 10 == 0: 
+            return True
+        else: 
+            return False
+        
+'''Below is the input taken from the card number, however the goal is to not only validate card numbers, 
+   but also from the first digits which cards are visa (starts with a 4), mastercard (starts with a 5), 
+   discover (starts with a 6) ,and american express (which is 15 digits while the rest are 16 digit cards). 
+'''
+
+#takes card number input and uses the Luhn Algorhitm for the validation process 
+
+card_number = int(input())
+
+valid = luhn_algorithm(card_number)
+
+#statement if the card number entered is valid or not
+print(f"{'Card is Valid' if valid else 'Invalad Card'}") 
